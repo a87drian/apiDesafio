@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Escuadra",
+    "price": 123.45,
+    "id": 1
+  },
+  {
+    "title": "Calculadora",
+    "price": 234.56,
+    "id": 2
+  },
+  {
+    "title": "Globo Terráqueo",
+    "price": 345.67,
+    "id": 3
+  },
+  {
+    "title": "Lápices de colores",
+    "price": 345.67,
+    "id": 4
+  },
+  {
+    "title": "cartuchera",
+    "price": "154.32",
+    "id": 5
+  }
+]
