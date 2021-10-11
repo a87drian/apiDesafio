@@ -23,5 +23,15 @@
     "title": "cartuchera",
     "price": "154.32",
     "id": 5
+  },
+  {
+    "title": "compas",
+    "price": "356.85",
+    "id": 6
+  },
+  {
+    "title": "lapiz",
+    "price": "100",
+    "id": 7
   }
 ]

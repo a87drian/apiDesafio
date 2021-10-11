@@ -1,5 +1,6 @@
 const express = require('express');
 const container = require('../contenedor')
+
 const containerProducts = new container('./Products/productos.json');
 
 
@@ -11,16 +12,18 @@ productosRouter.get('/', async (req, res)=>{
     res.send(listProducts);
 })
 productosRouter.get('/:id', async (req, res) => {
+    console.log('linea 15')
     const product = await containerProducts.getById(req.params.id);
-    // console.log(req.params.id)
-    // console.log('get by id ' + product)
     res.send(product);
 })
+
+
 productosRouter.post('/', async (req, res)=>{
     const newProduct = req.body;
     const id = await containerProducts.save(newProduct);
     console.log(req.body)
-    res.send(`ID: ${id}`);
+    // res.send(`ID: ${id}`);
+    res.redirect('http://localhost:8080/list-productos')
 });
 
 productosRouter.put('/:id',async (req, res) => {

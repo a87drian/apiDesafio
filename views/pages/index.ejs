@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <header><%- include('../partials/header') %></header>
+  <body>
+    <table class="table table-success table-striped">
+      <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Imagen</th>
+      </tr>
+      <% listProducts.forEach((product) => { %> 
+         <tr>
+             <td><%= product.title %></td>
+             <td><%= product.price %></td>
+             <td><%= product.id %></td>
+         </tr>
+      <% }) %>
+    </table>
+  </body>
+</html>
