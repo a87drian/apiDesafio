@@ -2,16 +2,19 @@
   {
     "title": "Escuadra",
     "price": 123.45,
+    "thumbnail": "https://cdn4.iconfinder.com/data/icons/design-29/101/squad_square_design-512.png",
     "id": 1
   },
   {
     "title": "Calculadora",
     "price": 234.56,
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-and-learning-set-2-1/256/77-512.png",
     "id": 2
   },
   {
     "title": "Globo Terráqueo",
     "price": 345.67,
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/unigrid-phantom-science-vol-1/60/003_042_planet_earth_globe_world_worldwide_space_cosmos_science_solar_system-512.png",
     "id": 3
   },
   {
@@ -33,5 +36,11 @@
     "title": "lapiz",
     "price": "100",
     "id": 7
+  },
+  {
+    "title": "mapa",
+    "price": "10",
+    "thumbnail": "",
+    "id": 8
   }
 ]

@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <%- include('../partials/head'); %>
-  </head>
-  <header><%- include('../partials/header') %></header>
-  <body>
-    <table class="table table-success table-striped">
-      <tr>
-        <th>Producto</th>
-        <th>Precio</th>
-        <th>Imagen</th>
-      </tr>
-      <% listProducts.forEach((product) => { %> 
-         <tr>
-             <td><%= product.title %></td>
-             <td><%= product.price %></td>
-             <td><%= product.id %></td>
-         </tr>
-      <% }) %>
-    </table>
-  </body>
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<header><%- include('../partials/header') %></header>
+
+<body>
+  <div class="row">
+    <div class="col">
+      <table class="table table-success table-striped">
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Imagen</th>
+        </tr>
+        <% listProducts.forEach((product) => { %>
+        <tr>
+          <td><%= product.title %></td>
+          <td><%= product.price %></td>
+          <td><img src="<%= product.thumbnail %>" width="50" height="60"> </td>
+        </tr>
+        <% }) %>
+      </table>
+      <a class="btn btn-secondary" href="/api/productos/product">Nuevo Producto</a>
+
+    </div>
+  </div>
+
+</body>
+
 </html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<header><%- include('../partials/header'); %></header>
+
+<body>
+  <div class="row">
+    <div class="col">
+      <form action="/api/productos/form" method="post">
+        <div class="mb-3">
+          <label for="ProductName" class="form-label">Product Name</label>
+          <input type="text" class="form-control" name="title" id="ProductName" />
+        </div>
+        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" class="form-control" name="price" id="price" step=".01" />
+        </div>
+        <div class="mb-3">
+          <label for="ImageURL" class="form-label">Url Image</label>
+          <input type="text" class="form-control" name="thumbnail" id="ImageURL" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Crear Producto</button>
+        <a class="btn btn-secondary" href="/api/productos/list-productos">Lista de productos</a>
+
+      </form>
+
+    </div>
+  </div>
+
+</body>
+
+</html>
