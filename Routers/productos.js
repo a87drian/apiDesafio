@@ -1,5 +1,6 @@
 const express = require('express');
-const container = require('../contenedor')
+const container = require('../contenedor');
+const { Socket } = require('../node_modules/socket.io/dist');
 
 const containerProducts = new container('./Products/productos.json');
 
@@ -50,7 +51,10 @@ productosRouter.get('/list-productos', async (req, res) => {
         listProducts
     });
 });
+
+
 productosRouter.get('/product', (req, res) => {
+    //devuelve el form de products
     res.render('pages/product')
 })
 
@@ -70,4 +74,12 @@ productosRouter.get('/:id', async (req, res) => {
     const product = await containerProducts.getById(req.params.id);
     res.send(product);
 })
+const addMessage = () => {
+    const message = {
+        author: document.getElementById().value,
+        text: document.getElementById().value
+    }
+    socket.emit('new-message', message);
+    return false;
+}
 module.exports = productosRouter;
