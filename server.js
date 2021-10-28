@@ -1,5 +1,6 @@
 const express = require('express');
 const productosRouter = require('./Routers/productos');
+const carritoRouter = require('./Routers/carritos')
 const { Server: HttpServer } = require('http')
 const { Server: IOServer } = require('socket.io')
 
@@ -20,7 +21,7 @@ server.get('/', (req, res) => {
     res.send({message: new Date().toLocaleDateString()})
 })
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 server.use('/api/productos', productosRouter);
 server.use('/api/carrito', carritoRouter);
