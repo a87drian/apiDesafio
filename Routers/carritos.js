@@ -4,7 +4,7 @@ const container = require("../contenedor");
 
 const containerCarrito = new container("./Products/carrito.json");
 
-let Admin = false;
+let Admin = true;
 // console.log('carrito.js '+Admin);
 
 carritoRouter.get("/:id/productos", async (req, res) => {
