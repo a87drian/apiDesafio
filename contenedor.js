@@ -78,6 +78,7 @@ class Contenedor {
       // console.log('removeID ' + removeID)
       // console.log(products.splice(removeID, 1))
       removed = products.splice(removeID, 1);
+      // console.log('removed', removed)
       if (removeID !== -1) {
         //const listActualizada = products.splice(removeID, 1);
         //console.log('listActualizada' + listActualizada...)
@@ -85,6 +86,8 @@ class Contenedor {
           `./${this.filename}`,
           JSON.stringify(products, null, 2)
         );
+      }else {
+        return undefined
       }
      }
     return removed;

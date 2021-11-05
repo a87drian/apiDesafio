@@ -66,8 +66,13 @@ productosRouter.get('/', async (req, res) => {
     res.send(listProducts);
 })
 productosRouter.get('/:id', async (req, res) => {
-    console.log('linea 15')
     const product = await containerProducts.getById(req.params.id);
-    res.send(product);
+    
+    if(product === undefined) {
+        
+        res.json({message:"id no encontrado"});
+    }else{
+        res.send(product)
+    }
 })
 module.exports = productosRouter;

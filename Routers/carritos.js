@@ -11,7 +11,16 @@ carritoRouter.get("/:id/productos", async (req, res) => {
   if (Admin) {
     const idCarrito = req.params.id;
     const Carrito = await containerCarrito.getById(idCarrito);
-    res.json(Carrito.productos);
+    if(Carrito === undefined){
+        res.json({
+          message: "id no encontrado"
+        });
+
+    }
+    else{
+      res.json(Carrito.productos);
+
+    }
   } else {
     res.json(
       `{error : -1, descripcion: ruta ${req.url} método ${req.method} no autorizada}`
@@ -22,6 +31,13 @@ carritoRouter.post("/:id/productos", async (req, res) => {
   if (Admin) {
     const idCarrito = req.params.id;
     const carrito = await containerCarrito.getById(idCarrito);
+        
+    if(carrito === undefined) {
+        res.json({
+          message: "id no encontrado"
+        });
+
+    }
     const producto = req.body;
     console.log("producto: ", req.body);
 
@@ -51,9 +67,11 @@ carritoRouter.post("/", async (req, res) => {
 });
 
 carritoRouter.delete("/:id", async (req, res) => {
+  console.log('delete id')
   if (Admin) {
     const idCarrito = req.params.id;
     const carritoDelete = await containerCarrito.deleteById(idCarrito);
+    console.log('carritoDelete', carritoDelete)
     if (carritoDelete) {
       res.json({
         message: "Borrado OK",
@@ -61,6 +79,7 @@ carritoRouter.delete("/:id", async (req, res) => {
     } else {
       res.json({
         message: "Error al Borrar",
+        type: "id no encontrado"
       });
     }
   } else {
@@ -75,6 +94,12 @@ carritoRouter.delete("/:id/productos/:id_prod", async (req, res) => {
     console.log("/:id/productos/:id_prod");
     const idCarrito = req.params.id;
     let carrito = await containerCarrito.getById(idCarrito);
+    if(carrito === undefined){
+        res.json({
+          message: "id no encontrado"
+        });
+
+    }
     // console.log('carrito', carrito)
     const idProducto = req.params.id_prod;
 
