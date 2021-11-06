@@ -1,6 +1,5 @@
 const express = require('express');
 const productosRouter = require('./Routers/productos');
-const carritoRouter = require('./Routers/carritos')
 const { Server: HttpServer } = require('http')
 const { Server: IOServer } = require('socket.io')
 
@@ -26,6 +25,12 @@ const PORT = process.env.PORT || 8080;
 server.use('/api/productos', productosRouter);
 server.use('/api/carrito', carritoRouter);
 
+
+
+
+// server.listen(PORT, ()=> {
+//     console.log(`server on ${PORT}`)
+// })
 
 
 

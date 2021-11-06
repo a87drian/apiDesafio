@@ -6,8 +6,9 @@
 </head>
 <header><%- include('../partials/header'); %></header>
 
-<body>
+<body class="align-items-center">
   <div class="row">
+    <div class="col"></div>
     <div class="col">
       <form action="/api/productos/form" method="post">
         <div class="mb-3">
@@ -29,7 +30,14 @@
       </form>
 
     </div>
+    <div class="col"></div>
   </div>
+
+  <div class="row">
+     <%- include('../partials/chat'); %>
+
+  </div>
+    
 
 </body>
 
