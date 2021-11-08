@@ -1,7 +1,9 @@
 const express = require('express');
 const productosRouter = require('./Routers/productos');
+const carritoRouter = require('./Routers/carritos')
 const { Server: HttpServer } = require('http')
-const { Server: IOServer } = require('socket.io')
+const { Server: IOServer } = require('socket.io');
+const { getMessages, saveMessages } = require('./models/messages');
 
 
 const server = express();
@@ -20,7 +22,7 @@ server.get('/', (req, res) => {
     res.send({message: new Date().toLocaleDateString()})
 })
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8082;
 
 server.use('/api/productos', productosRouter);
 server.use('/api/carrito', carritoRouter);
@@ -38,29 +40,32 @@ server.use('/api/carrito', carritoRouter);
 //     console.log(`server on ${PORT}`)
 // })
 
-httpServer.listen(8080, function () {
-    console.log('Servidor corriendo en http://localhost:8080');
+httpServer.listen(PORT, function () {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 })
 
-const messages = [
-    {
-        author: "Juan",
-        text: "¡Hola! ¿Que tal?"
-    }, {
-        author: "Pedro",
-        text: "¡Muy bien! ¿Y vos?"
-    }, {
-        author: "Ana",
-        text: "¡Genial!"
-    }
+// const messages = [
+//     {
+//         author: "Juan",
+//         text: "¡Hola! ¿Que tal?"
+//     }, {
+//         author: "Pedro",
+//         text: "¡Muy bien! ¿Y vos?"
+//     }, {
+//         author: "Ana",
+//         text: "¡Genial!"
+//     }
 
-]
+// ]
 
-io.on('connection', (socket) => { 
+io.on('connection', async (socket) => { 
     console.log('Usuario conectado')
+    const messages = await getMessages();
+    console.log(messages)
     socket.emit('messages:', messages)
-     socket.on('new-message', data => {
-         messages.push(data);
+    
+    socket.on('new-message', async (message) => {
+         await saveMessages(message);
          io.sockets.emit('messages', messages);
      });
 
