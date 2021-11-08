@@ -4,7 +4,7 @@ const options = {
     host:'localhost',
     port:3307,
     user:'root',
-    password: 'bv3yr0n',
+    password: '',
     database:'testdb'
     },
     pool: {min:0, max:7}
