@@ -1,19 +1,21 @@
 const express = require('express');
 // const container = require('../fs_contenedor');
- const container = require('../db_contenedor');
- const {options} = require('../DB/options')
+// const container = require('../db_contenedor');
+const container =  require('../mg_contenedor') 
+const {options} = require('../options')
 
 const { Socket } = require('../node_modules/socket.io/dist');
+const productDAO = require('../productDAO');
 
-const containerProducts = new container(options,'products');
-
+//const productDAO = new container(options,'products');
+const product = new productDAO();
 
 const productosRouter = express.Router();
 
 productosRouter.delete('/:id', async (req, res) => {
     const productId = req.params.id
     console.log('delete', productId)
-    const productUpdate = await containerProducts.deleteById(productId);
+    const productUpdate = await product.deleteById(productId);
     res.send({
         message: "borrado ok"
     })
@@ -24,17 +26,18 @@ productosRouter.delete('/:id', async (req, res) => {
 productosRouter.post('/', async (req, res)=>{
     console.log('post')
     const newProduct = req.body;
-    const id = await containerProducts.save(newProduct);
+    const id = await product.save(newProduct);
     console.log(req.body)
     // res.send(`ID: ${id}`);
-    res.redirect('http://localhost:8080/list-productos')
+   // res.redirect('http://localhost:8080/list-productos')
+   res.json(id)
 });
 
 productosRouter.put('/:id',async (req, res) => {
     console.log('put')
     const productId = req.params.id
     const product = req.body
-    const productUpdate = await containerProducts.update(productId, product);
+    const productUpdate = await product.update(productId, product);
     
     if (productUpdate){
         res.send({
@@ -53,7 +56,7 @@ productosRouter.put('/:id',async (req, res) => {
 })
 productosRouter.get('/list-productos', async (req, res) => {
     console.log('get')
-    const listProducts = await containerProducts.getAll();
+    const listProducts = await product.getAll();
     res.render('pages/index', {
         listProducts
     });
@@ -68,16 +71,16 @@ productosRouter.get('/product', (req, res) => {
 productosRouter.post('/form', async (req, res) => {
     const newProduct = req.body;
     console.log('body:' + newProduct)
-    const id = await containerProducts.save(newProduct);
+    const id = await product.save(newProduct);
     res.redirect(`http://localhost:8080/api/productos/list-productos`)
 });
 productosRouter.get('/', async (req, res) => {
-    const listProducts = await containerProducts.getAll();
+    const listProducts = await product.getAll();
     //console.log(listProducts)
     res.send(listProducts);
 })
 productosRouter.get('/:id', async (req, res) => {
-    const product = await containerProducts.getById(req.params.id);
+    const product = await product.getById(req.params.id);
     
     if(product === undefined) {
         

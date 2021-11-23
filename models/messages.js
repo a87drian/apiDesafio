@@ -1,7 +1,7 @@
 const messages = [];
 
 const contenedor = require('../db_contenedor');
-const {optionsSqlite} = require('../DB/options')
+const {optionsSqlite} = require('../options')
 
 const messagesContenedor = new contenedor(optionsSqlite, 'messages')
 

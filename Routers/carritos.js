@@ -1,9 +1,9 @@
 const express = require("express");
 const carritoRouter = express.Router();
-const container = require("../fs_contenedor");
-
-const containerCarrito = new container("./Products/carrito.json");
-
+const container = require('../fe_contenedor');
+//const containerCarrito = new container("./Products/carrito.json");
+const containerCarrito = new container();
+console.log(container)
 let Admin = true;
 // console.log('carrito.js '+Admin);
 
