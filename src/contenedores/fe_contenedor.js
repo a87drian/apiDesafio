@@ -1,29 +1,29 @@
 //const { database } = require("firebase-admin");
 const admin = require("firebase-admin");
-const {firestore}  = require("./options");
-const serviceAccount = require('./ecommerce-1c4a9-firebase-adminsdk-nybps-2b37302d78.json');
-
-
+const {firestore}  = require("../options");
 
 class Contenedor {
   constructor() {
+
+    const serviceAccount = require('../ecommerce-1c4a9-firebase-adminsdk-nybps-2b37302d78.json');
     admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-        databaseURL: "https://ecommerce-1c4a9.firebaseio.com"
+      credential: admin.credential.cert(serviceAccount),
     });
     const db = admin.firestore();
-    const carritos = db.collection("carritos");
-}
+    // console.log('db', db)
+    //const carritos = db.collection("carritos");
+  }
   async save(product) {
+    console.log('product------->', product)
+    const db = admin.firestore();
+    const carritos = db.collection("carritos");
+
+    console.log('firestore-------->', db)
     //Recibe un objeto, lo guarda en el archivo, devuelve el id asignado.
-
-    console.log('this.db', this.db);
-    console.log('this.carritos', this.carritos);
-    console.log(product);
-
+    console.log('carritos', carritos)
     try {
       //const doc = query.doc();
-      const document = await this.carritos.doc('carro').set(product);
+      const document = await carritos.doc().set(product);
       console.log(document);
       return document;
     } catch (error) {
@@ -56,7 +56,7 @@ class Contenedor {
   }
   async deleteById(id) {
     try {
-      const doc = query.doc(`${id}`);
+      const doc = query.doc(id);
       const deleted = await doc.delete();
       return deleted;
     } catch (error) {
@@ -74,7 +74,7 @@ class Contenedor {
   }
   async update(id, productUpdate) {
     try {
-      const doc = query.doc(`${id}`);
+      const doc = query.doc(id);
       const products = doc.update(productUpdate);
       return products;
     } catch (error) {

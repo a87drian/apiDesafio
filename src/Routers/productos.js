@@ -1,14 +1,10 @@
 const express = require('express');
-// const container = require('../fs_contenedor');
-// const container = require('../db_contenedor');
-const container =  require('../mg_contenedor') 
-const {options} = require('../options')
 
-const { Socket } = require('../node_modules/socket.io/dist');
-const productDAO = require('../productDAO');
-
+const { Socket } = require('socket.io');
+const productosDAO = require('../daos/producto/index');
 //const productDAO = new container(options,'products');
-const product = new productDAO();
+//const productos = new productDAO();
+
 
 const productosRouter = express.Router();
 
@@ -26,7 +22,7 @@ productosRouter.delete('/:id', async (req, res) => {
 productosRouter.post('/', async (req, res)=>{
     console.log('post')
     const newProduct = req.body;
-    const id = await product.save(newProduct);
+    const id = await productosDAO.save(newProduct);
     console.log(req.body)
     // res.send(`ID: ${id}`);
    // res.redirect('http://localhost:8080/list-productos')

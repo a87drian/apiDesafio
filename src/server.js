@@ -4,7 +4,7 @@ const carritoRouter = require('./Routers/carritos')
 const { Server: HttpServer } = require('http')
 const { Server: IOServer } = require('socket.io');
 const { getMessages, saveMessages } = require('./models/messages');
-
+const faker = require('faker')
 
 const server = express();
 const httpServer = new HttpServer(server)
@@ -27,7 +27,15 @@ const PORT = process.env.PORT || 8082;
 server.use('/api/productos', productosRouter);
 server.use('/api/carrito', carritoRouter);
 
-
+server.get('/test', (req, res)=>{
+    const products = [...new Array(5)].map((_, i) => ({
+        id: i,
+        title: faker.commerce.product(),
+        title: faker.commerce.price(),
+        thumbnail: faker.image.imageUrl()
+    }))
+    res.json(products)
+})
 
 
 // server.listen(PORT, ()=> {

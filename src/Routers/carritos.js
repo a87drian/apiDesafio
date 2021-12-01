@@ -1,11 +1,10 @@
 const express = require("express");
 const carritoRouter = express.Router();
-const container = require('../fe_contenedor');
 //const containerCarrito = new container("./Products/carrito.json");
-const containerCarrito = new container();
-console.log(container)
+ 
+const containerCarrito = require('../daos/carrito/index');
 let Admin = true;
-// console.log('carrito.js '+Admin);
+console.log('containerCarrito', containerCarrito)
 
 carritoRouter.get("/:id/productos", async (req, res) => {
   if (Admin) {
@@ -52,11 +51,11 @@ carritoRouter.post("/:id/productos", async (req, res) => {
 
 carritoRouter.post("/", async (req, res) => {
   if (Admin) {
-    console.log("post /");
+    // console.log("post /");
     const carrito = new Object();
     carrito.create_at = new Date();
     carrito.productos = [];
-    console.log(carrito);
+    // console.log('carrito', carrito);
     idCarrito = await containerCarrito.save(carrito);
     res.json(idCarrito);
   } else {
