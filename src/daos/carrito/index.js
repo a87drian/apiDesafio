@@ -6,7 +6,7 @@ let carritoDAO
 switch(config.CARRITOS) {
     case 'firestore': 
     const carritosDaoFirestore = require('./firestoreDAO')
-    const productoDao = new carritosDaoFirestore();
+    carritoDAO = new carritosDaoFirestore();
     break;
 }
-module.export = carritoDAO;
+module.exports = carritoDAO;
