@@ -2,7 +2,7 @@ const config = require('../../options');
 
 let productosDAO
 
-console.log('config', config);
+//console.log('config', config);
 
 
 switch(config.PRODUCTOS) {

@@ -4,7 +4,7 @@ const carritoRouter = express.Router();
  
 const containerCarrito = require('../daos/carrito/index');
 let Admin = true;
-console.log('containerCarrito', containerCarrito)
+//console.log('containerCarrito', containerCarrito)
 
 carritoRouter.get("/:id/productos", async (req, res) => {
   if (Admin) {

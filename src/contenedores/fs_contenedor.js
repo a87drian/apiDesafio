@@ -12,7 +12,7 @@ class Contenedor {
       let products;
       //let products = JSON.parse(content);
       // console.log("products" + products);
-      console.log("content" + content);
+    //  console.log("content" + content);
       if (content === "") {
         product.id = 0;
         products = [];

@@ -67,13 +67,14 @@ httpServer.listen(PORT, function () {
 // ]
 
 io.on('connection', async (socket) => { 
-    console.log('Usuario conectado')
+    //console.log('Usuario conectado')
     const messages = await getMessages();
-    console.log(messages)
+    console.log('get messages', messages)
     socket.emit('messages:', messages)
     
     socket.on('new-message', async (message) => {
          await saveMessages(message);
+        //  console.log('socket on',messages)
          io.sockets.emit('messages', messages);
      });
 

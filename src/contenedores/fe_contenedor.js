@@ -14,7 +14,7 @@ class Contenedor {
     //const carritos = db.collection("carritos");
   }
   async save(product) {
-    console.log('product------->', product)
+    //console.log('product------->', product)
     const db = admin.firestore();
     const carritos = db.collection("carritos");
 
