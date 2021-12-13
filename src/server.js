@@ -4,7 +4,11 @@ const carritoRouter = require('./Routers/carritos')
 const { Server: HttpServer } = require('http')
 const { Server: IOServer } = require('socket.io');
 const { getMessages, saveMessages } = require('./models/messages');
-const faker = require('faker')
+const faker = require('faker');
+const session = require('express-session');
+const authWebRouter = require('./auth/auth');
+const homeWebRouter = require('./auth/home');
+
 
 const server = express();
 const httpServer = new HttpServer(server)
@@ -16,11 +20,11 @@ server.set('view engine','ejs')
 server.use(express.json())
 server.use(express.urlencoded({extended: true}))
 // server.use('/static', express.static('public'))
-server.use(express.static('public'))
+//server.use(express.static('public'))
 
-server.get('/', (req, res) => {
-    res.send({message: new Date().toLocaleDateString()})
-})
+// server.get('/', (req, res) => {
+//     res.send({message: new Date().toLocaleDateString()})
+// })
 
 const PORT = process.env.PORT || 8082;
 
@@ -37,7 +41,17 @@ server.get('/test', (req, res)=>{
     res.json(products)
 })
 
-
+server.use(session({
+    secret: 'secreto',
+    resave: false,
+    saveUninitialized: false,
+    rolling: true,
+    cookie:{
+        maxAge: 60000
+    }
+}))
+server.use(authWebRouter)
+server.use(homeWebRouter)
 // server.listen(PORT, ()=> {
 //     console.log(`server on ${PORT}`)
 // })
@@ -66,16 +80,16 @@ httpServer.listen(PORT, function () {
 
 // ]
 
-io.on('connection', async (socket) => { 
-    //console.log('Usuario conectado')
-    const messages = await getMessages();
-    console.log('get messages', messages)
-    socket.emit('messages:', messages)
+// io.on('connection', async (socket) => { 
+//     //console.log('Usuario conectado')
+//     const messages = await getMessages();
+//     console.log('get messages', messages)
+//     socket.emit('messages:', messages)
     
-    socket.on('new-message', async (message) => {
-         await saveMessages(message);
-        //  console.log('socket on',messages)
-         io.sockets.emit('messages', messages);
-     });
+//     socket.on('new-message', async (message) => {
+//          await saveMessages(message);
+//         //  console.log('socket on',messages)
+//          io.sockets.emit('messages', messages);
+//      });
 
-})
+// })

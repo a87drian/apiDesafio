@@ -28,6 +28,12 @@ var _require3 = require('./models/messages'),
 
 var faker = require('faker');
 
+var session = require('express-session');
+
+var authWebRouter = require('./auth/auth');
+
+var homeWebRouter = require('./auth/home');
+
 var server = express();
 var httpServer = new HttpServer(server);
 var io = new IOServer(httpServer);
@@ -36,13 +42,11 @@ server.use(express.json());
 server.use(express.urlencoded({
   extended: true
 })); // server.use('/static', express.static('public'))
+//server.use(express.static('public'))
+// server.get('/', (req, res) => {
+//     res.send({message: new Date().toLocaleDateString()})
+// })
 
-server.use(express["static"]('public'));
-server.get('/', function (req, res) {
-  res.send({
-    message: new Date().toLocaleDateString()
-  });
-});
 var PORT = process.env.PORT || 8082;
 server.use('/api/productos', productosRouter);
 server.use('/api/carrito', carritoRouter);
@@ -57,7 +61,18 @@ server.get('/test', function (req, res) {
   });
 
   res.json(products);
-}); // server.listen(PORT, ()=> {
+});
+server.use(session({
+  secret: 'secreto',
+  resave: false,
+  saveUninitialized: false,
+  rolling: true,
+  cookie: {
+    maxAge: 60000
+  }
+}));
+server.use(authWebRouter);
+server.use(homeWebRouter); // server.listen(PORT, ()=> {
 //     console.log(`server on ${PORT}`)
 // })
 // server.listen(PORT, ()=> {
@@ -78,44 +93,14 @@ httpServer.listen(PORT, function () {
 //         text: "¡Genial!"
 //     }
 // ]
-
-io.on('connection', function _callee2(socket) {
-  var messages;
-  return regeneratorRuntime.async(function _callee2$(_context2) {
-    while (1) {
-      switch (_context2.prev = _context2.next) {
-        case 0:
-          _context2.next = 2;
-          return regeneratorRuntime.awrap(getMessages());
-
-        case 2:
-          messages = _context2.sent;
-          console.log('get messages', messages);
-          socket.emit('messages:', messages);
-          socket.on('new-message', function _callee(message) {
-            return regeneratorRuntime.async(function _callee$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    _context.next = 2;
-                    return regeneratorRuntime.awrap(saveMessages(message));
-
-                  case 2:
-                    //  console.log('socket on',messages)
-                    io.sockets.emit('messages', messages);
-
-                  case 3:
-                  case "end":
-                    return _context.stop();
-                }
-              }
-            });
-          });
-
-        case 6:
-        case "end":
-          return _context2.stop();
-      }
-    }
-  });
-});
+// io.on('connection', async (socket) => { 
+//     //console.log('Usuario conectado')
+//     const messages = await getMessages();
+//     console.log('get messages', messages)
+//     socket.emit('messages:', messages)
+//     socket.on('new-message', async (message) => {
+//          await saveMessages(message);
+//         //  console.log('socket on',messages)
+//          io.sockets.emit('messages', messages);
+//      });
+// })

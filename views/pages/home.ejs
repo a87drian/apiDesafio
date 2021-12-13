@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<header><%- include('../partials/header'); %></header>
+<body>
+    <div class="container mt-3">
+        <h1 class="alert alert-success">
+            Bienvenide, <%= nombre %>
+                <button class="btn btn-warning float-right mt-2" onclick="location.href='/logout'">
+                    Desloguear
+                </button>
+        </h1>
+    </div>
+</body>
+</html>

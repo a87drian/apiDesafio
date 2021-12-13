@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<header><%- include('../partials/header'); %></header>
+
+<body>
+    <div class="jumbotron">
+        <h1 class="alert alert-primary">
+            Hasta luego, <%=nombre%>!
+        </h1>
+    </div>
+    <script>
+        setTimeout(() => {
+            location.href = '/'
+        }, 2000)
+    </script>
+</body>
+
+</html>
