@@ -7,7 +7,7 @@ authWebRouter.get('/', (req, res) =>{
     res.redirect('/home')
 })
 
-authWebRouter.get('/loguin' , (req, res)=> {
+authWebRouter.get('/login' , (req, res)=> {
     const nombre = req.session?.nombre
     if(nombre){
     res.redirect('/')
