@@ -11,12 +11,14 @@
         <div class="jumbotron">
             <h1>Login de Usuario</h1>
             <br>
-            <form action="/login" method="post" autocomplete="off">
+            <form action="/auth/local" method="post" autocomplete="off">
                 <div class="form-group">
-                    <label for="nombre">Ingrese su nombre</label>
-                    <input id="nombre" class="form-control" type="text" name="nombre" required>
+                    <label for="email">Ingrese su email</label>
+                    <input id="email" class="form-control" type="text" name="email" required>
+                    <label for="clave">Ingrese su clave</label>
+                    <input id="clave" class="form-control" type="text" name="clave" required>
                 </div>
-                <button class="btn btn-success mt-3">Enviar</button>
+                <button class="btn btn-success mt-3">Login</button>
             </form>
         </div>
     </div>
