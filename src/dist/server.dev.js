@@ -34,6 +34,8 @@ var authWebRouter = require('./auth/auth');
 
 var homeWebRouter = require('./auth/home');
 
+var randomsRouter = require('./Routers/random');
+
 var server = express();
 var httpServer = new HttpServer(server);
 var io = new IOServer(httpServer);
@@ -50,6 +52,7 @@ server.use(express.urlencoded({
 var PORT = process.env.PORT || 8082;
 server.use('/api/productos', productosRouter);
 server.use('/api/carrito', carritoRouter);
+server.use(randomsRouter);
 server.get('/test', function (req, res) {
   var products = _toConsumableArray(new Array(5)).map(function (_, i) {
     var _ref;

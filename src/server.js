@@ -8,6 +8,7 @@ const faker = require('faker');
 const session = require('express-session');
 const authWebRouter = require('./auth/auth');
 const homeWebRouter = require('./auth/home');
+const randomsRouter = require('./Routers/random');
 
 
 const server = express();
@@ -30,6 +31,8 @@ const PORT = process.env.PORT || 8082;
 
 server.use('/api/productos', productosRouter);
 server.use('/api/carrito', carritoRouter);
+server.use(randomsRouter);
+
 
 server.get('/test', (req, res)=>{
     const products = [...new Array(5)].map((_, i) => ({
@@ -52,6 +55,7 @@ server.use(session({
 }))
 server.use(authWebRouter)
 server.use(homeWebRouter)
+
 // server.listen(PORT, ()=> {
 //     console.log(`server on ${PORT}`)
 // })
