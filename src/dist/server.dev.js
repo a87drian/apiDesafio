@@ -36,9 +36,14 @@ var homeWebRouter = require('./auth/home');
 
 var randomsRouter = require('./Routers/random');
 
+var cluster = require('cluster');
+
 var server = express();
 var httpServer = new HttpServer(server);
 var io = new IOServer(httpServer);
+
+var numCpu = require('os').cpus().length;
+
 server.set('view engine', 'ejs');
 server.use(express.json());
 server.use(express.urlencoded({
@@ -49,7 +54,27 @@ server.use(express.urlencoded({
 //     res.send({message: new Date().toLocaleDateString()})
 // })
 
-var PORT = process.env.PORT || 8082;
+var PORT = process.env.PORT || 8081;
+var isCluster = process.argv[2] === 'CLUSTER';
+/*CLUSTER*/
+
+console.log('cluster', process.argv[2]);
+
+if (cluster.isMaster && isCluster) {
+  for (var i; i < numCpu; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('exit', function (worker) {
+    console.log('WORKER', worker.process.pid, 'died', new Date().toLocaleDateString());
+    cluser.fork();
+  });
+} else {
+  server.get('/info', function (req, res) {
+    res.send("servidor en ".concat(PORT, "\n        <b>PID ").concat(process.pid, "</b>\n        cant procesadores ").concat(numCpu));
+  });
+}
+
 server.use('/api/productos', productosRouter);
 server.use('/api/carrito', carritoRouter);
 server.use(randomsRouter);
@@ -78,13 +103,13 @@ server.use(authWebRouter);
 server.use(homeWebRouter); // server.listen(PORT, ()=> {
 //     console.log(`server on ${PORT}`)
 // })
-// server.listen(PORT, ()=> {
-//     console.log(`server on ${PORT}`)
-// })
 
-httpServer.listen(PORT, function () {
-  console.log("Servidor corriendo en http://localhost:".concat(PORT));
-}); // const messages = [
+server.listen(PORT, function (err) {
+  if (!err) console.log("server on ".concat(PORT, " PID WORKER ").concat(process.pid));
+}); // httpServer.listen(PORT, function () {
+//     console.log(`Servidor corriendo en http://localhost:${PORT}`);
+// })
+// const messages = [
 //     {
 //         author: "Juan",
 //         text: "¡Hola! ¿Que tal?"
