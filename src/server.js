@@ -10,6 +10,7 @@ const authWebRouter = require('./auth/auth');
 const homeWebRouter = require('./auth/home');
 const randomsRouter = require('./Routers/random');
 const cluster = require('cluster');
+const logger = require('./logger.js')
 
 
 const server = express();
@@ -44,6 +45,8 @@ if(cluster.isMaster && isCluster){
     })
 
 }else{
+   // logger.info(`PATH: ${req.path}, METHOD: ${req.method}, MESSAGE: response success`);
+   console.log('codigo sincronico')
     server.get('/info', (req, res) => {
         res.send(
             `servidor en ${PORT}
