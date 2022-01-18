@@ -45,8 +45,8 @@ if(cluster.isMaster && isCluster){
     })
 
 }else{
-   // logger.info(`PATH: ${req.path}, METHOD: ${req.method}, MESSAGE: response success`);
-   console.log('codigo sincronico')
+   logger.info(`PATH: ${req.path}, METHOD: ${req.method}, MESSAGE: response success`);
+//    console.log('codigo sincronico')
     server.get('/info', (req, res) => {
         res.send(
             `servidor en ${PORT}
