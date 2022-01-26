@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const { CLIENT_LONG_FLAG } = require('mysql/lib/protocol/constants/client');
- const {mongodb} = require('../options');
+const {mongodb} = require('../options');
+console.log(mongodb.host);
+
 //const {host, options}  = require('./options');
 class Contenedor {
     constructor(collection, schema) {

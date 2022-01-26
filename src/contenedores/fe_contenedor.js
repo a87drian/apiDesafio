@@ -1,13 +1,22 @@
 //const { database } = require("firebase-admin");
 const admin = require("firebase-admin");
-const {firestore}  = require("../options");
+const {FIRESTORE}  = require("../options");
+const path = require('path');
+
+const dotenv = require('dotenv').config({
+  path: path.resolve(__dirname, '../firestore.env')
+});
+
+//console.log('dot', dotenv);
 
 class Contenedor {
   constructor() {
 
-    const serviceAccount = require('../ecommerce-1c4a9-firebase-adminsdk-nybps-2b37302d78.json');
+    const serviceAccount = require('../_ecommerce-1c4a9-firebase-adminsdk-nybps-2b37302d78.json');
+    const serviceAccount2 = FIRESTORE;
+  //  console.log('serviceAccount', serviceAccount, 'FIRESTORE', FIRESTORE);
     admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
+      credential: admin.credential.cert(JSON.parse(process.env.FIRESTORE)),
     });
     const db = admin.firestore();
     // console.log('db', db)
