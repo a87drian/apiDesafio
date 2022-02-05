@@ -4,13 +4,26 @@ const {mongodb} = require('../options');
 console.log(mongodb.host);
 
 //const {host, options}  = require('./options');
+const { MongoClient } = require('mongodb');
+const uri = "mongodb+srv://dbUser:dbPassword@cluster0.vlpmr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+
+
+
 class Contenedor {
     constructor(collection, schema) {
         this.collection = mongoose.model(collection, schema);
         this.schema = schema;
-        this.conexion = mongoose.connect(mongodb.host, mongodb.options)
+       /* this.conexion = mongoose.connect(mongodb.uri, mongodb.options)
         .then(()=> console.log("mongo conectado"))
-        .catch(()=> console.log("mongo no conectado"))
+        .catch(()=> console.log("mongo no conectado"))*/
+        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        client.connect(err => {
+        const collection = client.db("test").collection("devices");
+        // perform actions on the collection object
+        client.close();
+});
+
     }
     async save(product) {
         //Recibe un objeto, lo guarda en el archivo, devuelve el id asignado.

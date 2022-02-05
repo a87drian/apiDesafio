@@ -45,7 +45,7 @@ if(cluster.isMaster && isCluster){
     })
 
 }else{
-   logger.info(`PATH: ${req.path}, METHOD: ${req.method}, MESSAGE: response success`);
+ /*  logger.info(`PATH: ${req.path}, METHOD: ${req.method}, MESSAGE: response success`);
 //    console.log('codigo sincronico')
     server.get('/info', (req, res) => {
         res.send(
@@ -55,7 +55,7 @@ if(cluster.isMaster && isCluster){
 
         )
     })
-
+*/
 }
 
 

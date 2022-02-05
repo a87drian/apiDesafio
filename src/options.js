@@ -30,12 +30,14 @@ const optionsSqlite = {
     useNullAsDefault: true
 };
 const mongodb = {
+    uri : "mongodb+srv://dbUser:dbPassword@cluster0.vlpmr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     host: process.env.MONGODB_HOST,
     options: {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         serverSelectionTimeoutMS: 5000
-    }
+    },
+    
 
 };
 
